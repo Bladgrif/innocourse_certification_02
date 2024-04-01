@@ -1,4 +1,4 @@
-package com.onrender.x_clients_be.web.x_clients.helpers;
+package com.onrender.x_clients_be.web.x_clients.config;
 
 public enum Endpoints {
     AUTH_LOGIN("auth/login"),

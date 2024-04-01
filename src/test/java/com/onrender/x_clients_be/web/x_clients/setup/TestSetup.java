@@ -1,15 +1,15 @@
-package com.onrender.x_clients_be.web.x_clients.tests;
+package com.onrender.x_clients_be.web.x_clients.setup;
 
 import com.onrender.x_clients_be.web.x_clients.models.AuthRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
-import static com.onrender.x_clients_be.web.x_clients.helpers.Endpoints.AUTH_LOGIN;
+import static com.onrender.x_clients_be.web.x_clients.config.Endpoints.AUTH_LOGIN;
 import static io.restassured.RestAssured.given;
 
-public class EmployeeTests {
+public class TestSetup {
+
     public static String TOKEN;
 
     @BeforeAll
@@ -28,9 +28,5 @@ public class EmployeeTests {
                 .then()
                 .statusCode(201)
                 .extract().path("userToken");
-    }
-
-    @Test
-    void name() {
     }
 }
