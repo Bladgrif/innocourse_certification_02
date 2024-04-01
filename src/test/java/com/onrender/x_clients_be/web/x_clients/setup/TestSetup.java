@@ -29,4 +29,5 @@ public class TestSetup {
                 .statusCode(201)
                 .extract().path("userToken");
     }
+//    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIwMDQ3NjYsImV4cCI6MTcxMjAwNTY2Nn0.5lledjBf7zy2THt7hygVLQCQ35N9_ZwSEi0SypCTrHg
 }
