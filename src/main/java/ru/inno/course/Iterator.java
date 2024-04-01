@@ -1,9 +1,6 @@
 package ru.inno.course;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Iterator {
     public static void main(String[] args) throws SQLException {
@@ -16,6 +13,10 @@ public class Iterator {
         Connection connection = DriverManager.getConnection(url, user, password);
 
         ResultSet resultSet = connection.createStatement().executeQuery(sql);
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet2 = statement.executeQuery(sql);
+
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
