@@ -2,7 +2,7 @@ package com.onrender.x_clients_be.web.x_clients.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CompanyToAdd{
+public class CreateCompany {
 
 	@JsonProperty("name")
 	private String name;
@@ -10,7 +10,7 @@ public class CompanyToAdd{
 	@JsonProperty("description")
 	private String description;
 
-	public CompanyToAdd setName(String name){
+	public CreateCompany setName(String name){
 		this.name = name;
 		return this;
 	}
@@ -19,7 +19,7 @@ public class CompanyToAdd{
 		return name;
 	}
 
-	public CompanyToAdd setDescription(String description){
+	public CreateCompany setDescription(String description){
 		this.description = description;
 		return this;
 	}
@@ -30,7 +30,7 @@ public class CompanyToAdd{
 
 	@Override
 	public String toString() {
-		return "CompanyToAdd{" +
+		return "CreateCompany{" +
 				"name='" + name + '\'' +
 				", description='" + description + '\'' +
 				'}';
