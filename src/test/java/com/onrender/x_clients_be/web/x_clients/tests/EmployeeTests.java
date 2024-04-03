@@ -7,9 +7,14 @@ import com.onrender.x_clients_be.web.x_clients.models.CreateCompany;
 import com.onrender.x_clients_be.web.x_clients.setup.TestSetup;
 import com.onrender.x_clients_be.web.x_clients.utils.CompanyUtils;
 
+import com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator.createEmployee;
+import static com.onrender.x_clients_be.web.x_clients.utils.CompanyUtils.*;
+import static com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import static io.restassured.RestAssured.given;
@@ -17,21 +22,34 @@ import static io.restassured.RestAssured.given;
 public class EmployeeTests extends TestSetup {
     String token = TOKEN;
     static Faker faker = new Faker();
+    EmployeeUtils employeeUtils = new EmployeeUtils();
 
     @Test
-    void name() {
+    void companyTest() {
         System.out.println("добавить новую компанию");
-        int id = CompanyUtils.addCompany();
+        int id = addCompany();
         System.out.println("Добавили новую компанию: " + " id = " +id);
         System.out.println();
 
-        Company company = CompanyUtils.getCompany(id);
+        Company company = getCompany(id);
         System.out.println("получить конкретную компанию");
         System.out.println(company);
         System.out.println();
 
+        System.out.println("проверим статус компании");
+        System.out.println(company.isIsActive());
+        System.out.println();
+
+        System.out.println("сделать компанию неактивной");
+        System.out.println(updateCompanyStatus(id,false).isIsActive());
+        System.out.println();
+
+        System.out.println("сделать компанию активной");
+        System.out.println(updateCompanyStatus(id,true).isIsActive());
+        System.out.println();
+
         System.out.println("получим список всех компаний");
-        List<Company> companies = CompanyUtils.getAllCompanies();
+        List<Company> companies = getCompanies();
         System.out.println("Размер списка: " + companies.size());
         System.out.println();
 
@@ -40,23 +58,22 @@ public class EmployeeTests extends TestSetup {
         System.out.println("старые названия: " + company.getName() + " " + company.getDescription());
         CreateCompany companyToAdd = CompanyGenerator.generateCompany();
         System.out.println("новые названия: " + companyToAdd.getName() + " " + companyToAdd.getDescription());
-        Company company1 = CompanyUtils.changeCompany(id, companyToAdd);
+        Company company1 = changeCompany(id, companyToAdd);
         System.out.println("новые названия после изменения: " + company1.getName() + " " + company1.getDescription());
         System.out.println();
-        
+
         System.out.println("удалить компанию");
-        Company company2 = CompanyUtils.deleteCompany(id);
+        Company company2 = deleteCompany(id);
         System.out.println("удалили компанию: " + company2.getName() + " " + company2.getDescription());
-        Company company3 = CompanyUtils.getCompany(id);
+        Company company3 = getCompany(id);
         assertNull(company3);
         System.out.println("компание удалена");
 
     }
 
-//    @Test
-//    void name2() {
-//        CompanyToAdd companyToAdd = CompanyGenerator.generateCompany();
-//        System.out.println(companyToAdd);
-//
-//    }
+    @Test
+    void employeeTest() {
+        int id = addEmployee(createEmployee());
+
+    }
 }

@@ -14,12 +14,20 @@ import static com.onrender.x_clients_be.web.x_clients.tests.EmployeeTests.TOKEN;
 import static io.restassured.RestAssured.given;
 
 public class CompanyUtils {
+    static String xClient = "X-Client-Token";
 
-    public static List<Company> getAllCompanies() {
+    public static List<Company> getCompanies() {
+        return getCompanies(null);
+    }
+    public static List<Company> getCompanies(Boolean active) {
         try {
+            String address = "";
+            if (active != null) {
+                address = "?active=" + active.toString();
+            }
             Response response = given()
                     .when()
-                    .get(COMPANY.getPath())
+                    .get(COMPANY.getPath() + address)
                     .then()
                     .statusCode(200)
                     .extract().response();
@@ -28,7 +36,7 @@ public class CompanyUtils {
             return companies;
 
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода getAlCompanies");
+            System.out.println("Ошибка при вызове метода getCompanies");
             e.printStackTrace();
             return null;
         }
@@ -39,7 +47,7 @@ public class CompanyUtils {
             int companyId = given()
                     .contentType(ContentType.JSON)
                     .body(CompanyGenerator.generateCompany())
-                    .header("X-Client-Token", TOKEN)
+                    .header(xClient, TOKEN)
                     .when()
                     .post(COMPANY.getPath())
                     .then()
@@ -57,7 +65,7 @@ public class CompanyUtils {
         try {
             Company company = given()
                     .contentType(ContentType.JSON)
-                    .header("X-Client-Token", TOKEN)
+                    .header(xClient, TOKEN)
                     .when()
                     .get(COMPANY.getPath() + "/" + Integer.toString(id))
                     .then()
@@ -77,7 +85,7 @@ public class CompanyUtils {
             Company company = given()
                     .contentType(ContentType.JSON)
                     .body(createCompany)
-                    .header("X-Client-Token", TOKEN)
+                    .header(xClient, TOKEN)
                     .when()
                     .patch(COMPANY.getPath() + "/" + Integer.toString(id))
                     .then()
@@ -96,7 +104,7 @@ public class CompanyUtils {
     public static Company deleteCompany(Integer id) {
         try {
             Company company = given()
-                    .header("X-Client-Token", TOKEN)
+                    .header(xClient, TOKEN)
                     .when()
                     .get(COMPANY.getPath() + "/delete/" + Integer.toString(id))
                     .then()
@@ -107,6 +115,34 @@ public class CompanyUtils {
 
         } catch (Exception e) {
             System.out.println("Ошибка при вызове метода deleteCompany");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Company updateCompanyStatus(Integer id, Boolean isActive) {
+        try {
+            if (isActive == null) {
+                isActive = true;
+            }
+            String active = "{\n" +
+                    "  \"isActive\": " + isActive + "\n" +
+                    "}";
+
+            Company company = given()
+                    .header(xClient, TOKEN)
+                    .contentType(ContentType.JSON)
+                    .body(active)
+                    .when()
+                    .patch(COMPANY.getPath() + "/status/" + Integer.toString(id))
+                    .then()
+                    .statusCode(200)
+                    .extract().body().as(Company.class);
+
+            return company;
+
+        } catch (Exception e) {
+            System.out.println("Ошибка при вызове метода activateCompany");
             e.printStackTrace();
             return null;
         }
