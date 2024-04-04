@@ -1,5 +1,6 @@
 package com.onrender.x_clients_be.web.x_clients.utils;
 
+import com.github.javafaker.Faker;
 import com.onrender.x_clients_be.web.x_clients.models.CreateEmployee;
 import com.onrender.x_clients_be.web.x_clients.models.Employee;
 import io.restassured.http.ContentType;
@@ -11,17 +12,72 @@ import static io.restassured.RestAssured.given;
 
 public class EmployeeUtils {
 
-    public static Integer addEmployee(CreateEmployee employee) {
-        int employeeId = given()
-                .contentType(ContentType.JSON)
-                .body(employee)
-                .header("X-Client-Token", TOKEN)
-                .when()
-                .post(EMPLOYEE.getPath())
-                .then()
-                .statusCode(201)
-                .body("id", Matchers.notNullValue())
-                .extract().path("id");
-        return employeeId;
+    private static Faker faker;
+
+    public static Integer addEmployee(CreateEmployee employee, Integer companyId) {
+        employee.setCompanyId(companyId);
+
+        try {
+            int employeeId = given()
+                    .contentType(ContentType.JSON)
+                    .body(employee)
+                    .header("X-Client-Token", TOKEN)
+                    .when()
+                    .post(EMPLOYEE.getPath())
+                    .then()
+                    .statusCode(201)
+                    .body("id", Matchers.notNullValue())
+                    .extract().path("id");
+            return employeeId;
+        } catch (Exception e) {
+            System.out.println("Ошибка при вызове метода addEmployee");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Employee getEmployee(Integer employeeId) {
+
+        try {
+            Employee employee = given()
+                    .header("X-Client-Token", TOKEN)
+                    .when()
+                    .get(EMPLOYEE.getPath() + "/" + employeeId)
+                    .then()
+                    .statusCode(200)
+                    .body("id", Matchers.notNullValue())
+                    .extract().body().as(Employee.class);
+            return employee;
+        } catch (Exception e) {
+            System.out.println("Ошибка при вызове метода addEmployee");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Integer updateEmployeeEmail(Integer id,String firstName) {
+
+        try {
+            String newlastName = "{\n" +
+                    "  \"lastName\": \""+firstName+"\"\n" +
+                    "\n" +
+                    "}";
+
+            int employeeId  = given()
+                    .contentType(ContentType.JSON)
+                    .body(newlastName)
+                    .header("X-Client-Token", TOKEN)
+                    .when()
+                    .patch(EMPLOYEE.getPath()+ "/" + id)
+                    .then()
+                    .statusCode(200)
+                    .body("id", Matchers.notNullValue())
+                    .extract().path("id");
+            return employeeId;
+        } catch (Exception e) {
+            System.out.println("Ошибка при вызове метода updateEmployee");
+            e.printStackTrace();
+            return null;
+        }
     }
 }

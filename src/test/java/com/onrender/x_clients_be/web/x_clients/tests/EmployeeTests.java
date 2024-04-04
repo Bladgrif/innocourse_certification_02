@@ -10,6 +10,10 @@ import com.onrender.x_clients_be.web.x_clients.utils.CompanyUtils;
 import com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import static com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator.createEmployee;
@@ -73,7 +77,19 @@ public class EmployeeTests extends TestSetup {
 
     @Test
     void employeeTest() {
-        int id = addEmployee(createEmployee());
+        System.out.println("Создать нового сотрудника");
+        int id = addEmployee(createEmployee(),addCompany());
+        System.out.println();
+
+        System.out.println("Получить сотрудника");
+        System.out.println(getEmployee(id));
+        System.out.println();
+
+
+        System.out.println("Изменить сотрудника");
+        System.out.println(updateEmployeeEmail(id,getEmployee(id).getFirstName()));
+        System.out.println(getEmployee(id));
+
 
     }
 }

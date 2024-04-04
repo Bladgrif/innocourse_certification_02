@@ -147,4 +147,22 @@ public class Employee {
     public String getCreateDateTime() {
         return createDateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", companyId=" + companyId +
+                ", birthdate='" + birthdate + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", phone='" + phone + '\'' +
+                ", lastChangedDateTime='" + lastChangedDateTime + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", id=" + id +
+                ", isActive=" + isActive +
+                ", email='" + email + '\'' +
+                ", createDateTime='" + createDateTime + '\'' +
+                '}';
+    }
 }
