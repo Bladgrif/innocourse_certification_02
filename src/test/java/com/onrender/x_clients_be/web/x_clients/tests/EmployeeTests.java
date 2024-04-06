@@ -2,6 +2,7 @@ package com.onrender.x_clients_be.web.x_clients.tests;
 
 import com.github.javafaker.Faker;
 import com.onrender.x_clients_be.web.x_clients.generator.CompanyGenerator;
+import com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator;
 import com.onrender.x_clients_be.web.x_clients.models.Company;
 import com.onrender.x_clients_be.web.x_clients.models.CreateCompany;
 import com.onrender.x_clients_be.web.x_clients.setup.TestSetup;
@@ -31,7 +32,7 @@ public class EmployeeTests extends TestSetup {
     @Test
     void companyTest() {
         System.out.println("добавить новую компанию");
-        int id = addCompany();
+        int id = createCompany();
         System.out.println("Добавили новую компанию: " + " id = " +id);
         System.out.println();
 
@@ -78,7 +79,7 @@ public class EmployeeTests extends TestSetup {
     @Test
     void employeeTest() {
         System.out.println("Создать нового сотрудника");
-        int id = addEmployee(createEmployee(),addCompany());
+        int id = addEmployee(createEmployee(),createCompany());
         System.out.println();
 
         System.out.println("Получить сотрудника");
@@ -87,8 +88,12 @@ public class EmployeeTests extends TestSetup {
 
 
         System.out.println("Изменить сотрудника");
-        System.out.println(updateEmployeeEmail(id,getEmployee(id).getFirstName()));
+        System.out.println(updateEmployee(id, EmployeeGenerator.updateEmployee()));
         System.out.println(getEmployee(id));
+        System.out.println();
+
+        System.out.println("Получить список сотрудников");
+        System.out.println(getEmployeeList(3527));
 
 
     }

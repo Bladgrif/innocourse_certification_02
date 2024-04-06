@@ -42,7 +42,7 @@ public class CompanyUtils {
         }
     }
 
-    public static Integer addCompany() {
+    public static Integer createCompany() {
         try {
             int companyId = given()
                     .contentType(ContentType.JSON)
