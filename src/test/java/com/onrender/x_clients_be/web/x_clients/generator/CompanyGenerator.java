@@ -6,7 +6,7 @@ import com.onrender.x_clients_be.web.x_clients.models.CreateCompany;
 import java.util.Locale;
 
 public class CompanyGenerator {
-    static Faker faker = new Faker(new Locale("ru"));
+    static Faker faker = new Faker(new Locale("en"));
 
     public static CreateCompany generateCompany() {
         CreateCompany company = new CreateCompany()

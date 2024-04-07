@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class EmployeeGenerator {
-    static Faker faker = new Faker(new Locale("ru"));
+    static Faker faker = new Faker(new Locale("en"));
     static Random random = new Random();
 
 
