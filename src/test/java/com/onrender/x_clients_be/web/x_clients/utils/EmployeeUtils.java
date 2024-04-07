@@ -10,7 +10,7 @@ import org.hamcrest.Matchers;
 import java.util.List;
 
 import static com.onrender.x_clients_be.web.x_clients.config.Endpoints.EMPLOYEE;
-import static com.onrender.x_clients_be.web.x_clients.setup.TestSetup.TOKEN;
+import static com.onrender.x_clients_be.web.x_clients.setup.BaseTest.TOKEN;
 import static io.restassured.RestAssured.given;
 
 public class EmployeeUtils {

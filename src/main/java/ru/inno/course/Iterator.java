@@ -9,22 +9,22 @@ public class Iterator {
         String user = "x_clients_user";
         String password = "x7ngHjC1h08a85bELNifgKmqZa8KIR40";
         String sql = "SELECT * FROM company";
-
+//
         Connection connection = DriverManager.getConnection(url, user, password);
-
+//
         ResultSet resultSet = connection.createStatement().executeQuery(sql);
-
+//
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet2 = statement.executeQuery(sql);
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            System.out.println(id + " " + name);
-        }
-
-        connection.close();
-
+//
+//        while (resultSet.next()) {
+//            int id = resultSet.getInt("id");
+//            String name = resultSet.getString("name");
+//            System.out.println(id + " " + name);
+//        }
+//
+//        connection.close();
+//
 
     }
 

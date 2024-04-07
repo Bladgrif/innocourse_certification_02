@@ -106,7 +106,7 @@ public class CompanyUtils {
             Company company = given()
                     .header(xClient, TOKEN)
                     .when()
-                    .get(COMPANY.getPath() + "/delete/" + Integer.toString(id))
+                    .get(COMPANY.getPath() + "/delete/" + id)
                     .then()
                     .statusCode(200)
                     .extract().body().as(Company.class);

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import static com.onrender.x_clients_be.web.x_clients.config.Endpoints.AUTH_LOGIN;
 import static io.restassured.RestAssured.given;
 
-public class TestSetup {
+public class BaseTest {
 
     public static String TOKEN;
 
