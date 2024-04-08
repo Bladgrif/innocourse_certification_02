@@ -9,7 +9,6 @@ import com.onrender.x_clients_be.web.x_clients.setup.BaseTest;
 import com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils;
 import org.junit.jupiter.api.Test;
 
-import java.sql.*;
 import java.util.List;
 
 import static com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator.createEmployee;
@@ -28,21 +27,14 @@ public class EmployeeTests extends BaseTest {
         Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
         assertNotNull(employeeId, "Failed to add employee");
         assertEquals(employeeAndCompanyJDBC.isEmployeeExists(employeeId),1, "Failed to add employee");
-
     }
-
-//    @Test
-//    void testAddNotCorrectEmployee() {
-//        CreateEmployee employee = new CreateEmployee();
-//        Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
-//        assertNull(employeeId, "Failed to add employee");
-//    }
 
     @Test
     void testGetEmployee() {
         Integer employeeId = EmployeeUtils.addEmployee(createEmployee(), createCompany());
         Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);
         assertNotNull(employeeInfo, "Failed to get employee");
+        assertEquals(employeeInfo.getId(), employeeAndCompanyJDBC.getEmployeeById(employeeId).getId(), "Failed to get employee");
     }
 
     @Test
