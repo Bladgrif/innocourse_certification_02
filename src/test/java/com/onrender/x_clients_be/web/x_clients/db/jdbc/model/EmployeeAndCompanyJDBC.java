@@ -24,7 +24,7 @@ public class EmployeeAndCompanyJDBC {
         this.databaseManager = new DatabaseManager();
     }
 
-    public boolean isEmployeeExists(int employeeId) {
+    public Integer isEmployeeExists(int employeeId) {
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlSelectGetById)) {
 
@@ -33,12 +33,12 @@ public class EmployeeAndCompanyJDBC {
 
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                return count == 1;
+                return count;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error executing isEmployeeExists request: " + e.getMessage());
         }
 
-        return false;
+        return null;
     }
 }

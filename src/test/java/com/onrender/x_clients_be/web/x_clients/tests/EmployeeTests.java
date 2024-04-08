@@ -23,11 +23,12 @@ public class EmployeeTests extends BaseTest {
     EmployeeAndCompanyJDBC employeeAndCompanyJDBC = new EmployeeAndCompanyJDBC();
 
     @Test
-    void testAddEmployee() throws SQLException {
+    void testAddEmployee() {
         CreateEmployee employee = createEmployee();
         Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
         assertNotNull(employeeId, "Failed to add employee");
-        assertTrue(employeeAndCompanyJDBC.isEmployeeExists(employeeId), "Failed to add employee");
+        assertEquals(employeeAndCompanyJDBC.isEmployeeExists(employeeId),1, "Failed to add employee");
+
     }
 
 //    @Test
