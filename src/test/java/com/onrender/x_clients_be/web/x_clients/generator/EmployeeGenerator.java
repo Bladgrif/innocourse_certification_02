@@ -7,7 +7,7 @@ import com.onrender.x_clients_be.web.x_clients.models.UpdateEmployee;
 import java.util.Locale;
 import java.util.Random;
 
-public class EmployeeGenerator {
+public class  EmployeeGenerator {
     static Faker faker = new Faker(new Locale("en"));
     static Random random = new Random();
 
