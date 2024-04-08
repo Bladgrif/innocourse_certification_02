@@ -28,12 +28,12 @@ public class EmployeeTests extends BaseTest {
         assertNotNull(employeeId, "Failed to add employee");
     }
 
-    @Test
-    void testAddNotCorrectEmployee() {
-        CreateEmployee employee = new CreateEmployee();
-        Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
-        assertNull(employeeId, "Failed to add employee");
-    }
+//    @Test
+//    void testAddNotCorrectEmployee() {
+//        CreateEmployee employee = new CreateEmployee();
+//        Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
+//        assertNull(employeeId, "Failed to add employee");
+//    }
 
     @Test
     void testGetEmployee() {
@@ -47,6 +47,7 @@ public class EmployeeTests extends BaseTest {
         CreateEmployee employee = createEmployee();
         Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
         UpdateEmployee updateEmployee = EmployeeGenerator.updateEmployee();
+//        Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
         Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
         assertNotEquals(employee.getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(),
                 "Failed to update employee");

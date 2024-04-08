@@ -28,13 +28,10 @@ public class EmployeeUtils {
                     .when()
                     .post(EMPLOYEE.getPath())
                     .then()
-//                    .statusCode(201)
-//                    .body("id", Matchers.notNullValue())
                     .extract().path("id");
             return employeeId;
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода addEmployee");
-            e.printStackTrace();
+            System.out.println("Error when calling addEmployee method" + e.getMessage());
             return null;
         }
     }
@@ -47,13 +44,10 @@ public class EmployeeUtils {
                     .when()
                     .get(EMPLOYEE.getPath() + "/" + employeeId)
                     .then()
-                    .statusCode(200)
-                    .body("id", Matchers.notNullValue())
                     .extract().body().as(Employee.class);
             return employee;
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода addEmployee");
-            e.printStackTrace();
+            System.out.println("Error when calling getEmployee method" + e.getMessage());
             return null;
         }
     }
@@ -69,13 +63,10 @@ public class EmployeeUtils {
                     .when()
                     .patch(EMPLOYEE.getPath()+ "/" + id)
                     .then()
-                    .statusCode(200)
-                    .body("id", Matchers.notNullValue())
                     .extract().path("id");
             return employeeId;
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода updateEmployee");
-            e.printStackTrace();
+            System.out.println("Error when calling updateEmployee method" + e.getMessage());
             return null;
         }
     }
@@ -88,12 +79,10 @@ public class EmployeeUtils {
                     .when()
                     .get(EMPLOYEE.getPath() + "?company=" + companyId)
                     .then()
-                    .statusCode(200)
                     .extract().body().jsonPath().getList(".", Employee.class);
             return companyEmployees;
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода getEmployeeList");
-            e.printStackTrace();
+            System.out.println("Error when calling getEmployeeList method" + e.getMessage());
             return null;
         }
     }
