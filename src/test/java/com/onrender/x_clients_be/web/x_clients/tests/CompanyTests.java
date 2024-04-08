@@ -1,7 +1,7 @@
 package com.onrender.x_clients_be.web.x_clients.tests;
 
-import com.onrender.x_clients_be.web.x_clients.models.Company;
-import com.onrender.x_clients_be.web.x_clients.models.CreateCompany;
+import com.onrender.x_clients_be.web.x_clients.model.Company;
+import com.onrender.x_clients_be.web.x_clients.model.CreateCompany;
 import com.onrender.x_clients_be.web.x_clients.setup.BaseTest;
 import com.onrender.x_clients_be.web.x_clients.utils.CompanyUtils;
 import org.junit.jupiter.api.Test;

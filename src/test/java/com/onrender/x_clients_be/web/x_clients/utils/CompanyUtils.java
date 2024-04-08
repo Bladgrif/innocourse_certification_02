@@ -1,8 +1,8 @@
 package com.onrender.x_clients_be.web.x_clients.utils;
 
 import com.onrender.x_clients_be.web.x_clients.generator.CompanyGenerator;
-import com.onrender.x_clients_be.web.x_clients.models.Company;
-import com.onrender.x_clients_be.web.x_clients.models.CreateCompany;
+import com.onrender.x_clients_be.web.x_clients.model.Company;
+import com.onrender.x_clients_be.web.x_clients.model.CreateCompany;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

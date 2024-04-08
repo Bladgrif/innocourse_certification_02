@@ -1,11 +1,10 @@
 package com.onrender.x_clients_be.web.x_clients.utils;
 
 import com.github.javafaker.Faker;
-import com.onrender.x_clients_be.web.x_clients.models.CreateEmployee;
-import com.onrender.x_clients_be.web.x_clients.models.Employee;
-import com.onrender.x_clients_be.web.x_clients.models.UpdateEmployee;
+import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
+import com.onrender.x_clients_be.web.x_clients.model.Employee;
+import com.onrender.x_clients_be.web.x_clients.model.UpdateEmployee;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
 
 import java.util.List;
 

@@ -1,9 +1,13 @@
 package com.onrender.x_clients_be.web.x_clients.setup;
 
-import com.onrender.x_clients_be.web.x_clients.models.AuthRequest;
+import com.onrender.x_clients_be.web.x_clients.config.ConfigJDBC;
+import com.onrender.x_clients_be.web.x_clients.model.AuthRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.sql.*;
 
 import static com.onrender.x_clients_be.web.x_clients.config.Endpoints.AUTH_LOGIN;
 import static io.restassured.RestAssured.given;
@@ -29,5 +33,4 @@ public class BaseTest {
                 .statusCode(201)
                 .extract().path("userToken");
     }
-//    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTIwODczMDksImV4cCI6MTcxMjA4ODIwOX0.xgo0kkDDqlLy9CnANyA7FXVRaFIUkZ6T-1r-6GXSOcw
 }

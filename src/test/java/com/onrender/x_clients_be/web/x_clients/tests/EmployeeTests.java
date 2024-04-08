@@ -1,16 +1,15 @@
 package com.onrender.x_clients_be.web.x_clients.tests;
 
+import com.onrender.x_clients_be.web.x_clients.db.jdbc.model.EmployeeAndCompanyJDBC;
 import com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator;
-import com.onrender.x_clients_be.web.x_clients.models.Company;
-import com.onrender.x_clients_be.web.x_clients.models.CreateEmployee;
-import com.onrender.x_clients_be.web.x_clients.models.Employee;
-import com.onrender.x_clients_be.web.x_clients.models.UpdateEmployee;
+import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
+import com.onrender.x_clients_be.web.x_clients.model.Employee;
+import com.onrender.x_clients_be.web.x_clients.model.UpdateEmployee;
 import com.onrender.x_clients_be.web.x_clients.setup.BaseTest;
 import com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.sql.*;
 import java.util.List;
 
 import static com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator.createEmployee;
@@ -21,11 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeTests extends BaseTest {
 
+    EmployeeAndCompanyJDBC employeeAndCompanyJDBC = new EmployeeAndCompanyJDBC();
+
     @Test
-    void testAddEmployee() {
+    void testAddEmployee() throws SQLException {
         CreateEmployee employee = createEmployee();
         Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
         assertNotNull(employeeId, "Failed to add employee");
+        assertTrue(employeeAndCompanyJDBC.isEmployeeExists(employeeId), "Failed to add employee");
     }
 
 //    @Test
@@ -47,7 +49,6 @@ public class EmployeeTests extends BaseTest {
         CreateEmployee employee = createEmployee();
         Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
         UpdateEmployee updateEmployee = EmployeeGenerator.updateEmployee();
-//        Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
         Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
         assertNotEquals(employee.getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(),
                 "Failed to update employee");

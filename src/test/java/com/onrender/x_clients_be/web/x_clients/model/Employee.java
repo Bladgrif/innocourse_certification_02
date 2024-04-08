@@ -1,4 +1,4 @@
-package com.onrender.x_clients_be.web.x_clients.models;
+package com.onrender.x_clients_be.web.x_clients.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

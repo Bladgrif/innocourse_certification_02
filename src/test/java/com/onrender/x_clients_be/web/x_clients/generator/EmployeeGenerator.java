@@ -1,8 +1,8 @@
 package com.onrender.x_clients_be.web.x_clients.generator;
 
 import com.github.javafaker.Faker;
-import com.onrender.x_clients_be.web.x_clients.models.CreateEmployee;
-import com.onrender.x_clients_be.web.x_clients.models.UpdateEmployee;
+import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
+import com.onrender.x_clients_be.web.x_clients.model.UpdateEmployee;
 
 import java.util.Locale;
 import java.util.Random;

@@ -1,7 +1,7 @@
 package com.onrender.x_clients_be.web.x_clients.generator;
 
 import com.github.javafaker.Faker;
-import com.onrender.x_clients_be.web.x_clients.models.CreateCompany;
+import com.onrender.x_clients_be.web.x_clients.model.CreateCompany;
 
 import java.util.Locale;
 
