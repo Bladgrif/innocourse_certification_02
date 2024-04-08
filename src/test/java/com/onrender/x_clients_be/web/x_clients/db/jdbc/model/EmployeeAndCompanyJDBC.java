@@ -50,7 +50,6 @@ public class EmployeeAndCompanyJDBC {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // Используем конструктор Employee для создания объекта на основе данных из ResultSet
                 Employee employee = new Employee()
                         .setFirstName(resultSet.getString("first_name"))
                         .setLastName(resultSet.getString("last_name"))
