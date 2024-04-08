@@ -41,7 +41,7 @@ public class EmployeeAndCompanyJDBC {
 
         return null;
     }
-    // Метод для получения сотрудника по его ID
+
     public Employee getEmployeeById(int employeeId) {
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlSelectEmployeeById)) {
