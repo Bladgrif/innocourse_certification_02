@@ -29,6 +29,13 @@ public class EmployeeTests extends BaseTest {
     }
 
     @Test
+    void testAddNotCorrectEmployee() {
+        CreateEmployee employee = new CreateEmployee();
+        Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
+        assertNull(employeeId, "Failed to add employee");
+    }
+
+    @Test
     void testGetEmployee() {
         Integer employeeId = EmployeeUtils.addEmployee(createEmployee(), createCompany());
         Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);

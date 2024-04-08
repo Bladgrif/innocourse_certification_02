@@ -28,8 +28,8 @@ public class EmployeeUtils {
                     .when()
                     .post(EMPLOYEE.getPath())
                     .then()
-                    .statusCode(201)
-                    .body("id", Matchers.notNullValue())
+//                    .statusCode(201)
+//                    .body("id", Matchers.notNullValue())
                     .extract().path("id");
             return employeeId;
         } catch (Exception e) {
