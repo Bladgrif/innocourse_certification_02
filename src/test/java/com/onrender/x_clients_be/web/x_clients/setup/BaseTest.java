@@ -1,5 +1,6 @@
 package com.onrender.x_clients_be.web.x_clients.setup;
 
+import com.onrender.x_clients_be.web.x_clients.config.ConfigApi;
 import com.onrender.x_clients_be.web.x_clients.config.ConfigJDBC;
 import com.onrender.x_clients_be.web.x_clients.model.AuthRequest;
 import io.restassured.RestAssured;
@@ -21,8 +22,8 @@ public class BaseTest {
         RestAssured.baseURI = "https://x-clients-be.onrender.com/";
 
         AuthRequest authRequest = new AuthRequest()
-                .setUsername("bloom")
-                .setPassword("fire-fairy");
+                .setUsername(ConfigApi.getApiUser())
+                .setPassword(ConfigApi.getApiPassword());
 
         TOKEN = given()
                 .contentType(ContentType.JSON)
