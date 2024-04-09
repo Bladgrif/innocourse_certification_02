@@ -55,12 +55,12 @@ public class EmployeeUtils {
 
         try {
 
-            int employeeId  = given()
+            int employeeId = given()
                     .contentType(ContentType.JSON)
                     .body(employee)
                     .header("X-Client-Token", TOKEN)
                     .when()
-                    .patch(EMPLOYEE.getPath()+ "/" + id)
+                    .patch(EMPLOYEE.getPath() + "/" + id)
                     .then()
                     .extract().path("id");
             return employeeId;
@@ -70,7 +70,7 @@ public class EmployeeUtils {
         }
     }
 
-    public static List<Employee>  getEmployeeList(Integer companyId) {
+    public static List<Employee> getEmployeeList(Integer companyId) {
 
         try {
 

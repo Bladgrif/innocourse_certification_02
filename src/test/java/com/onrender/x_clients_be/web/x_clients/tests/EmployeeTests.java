@@ -104,7 +104,6 @@ public class EmployeeTests extends BaseTest {
         assertEquals(employeeAndCompanyJDBC.getEmployeeById(employeeId).getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(), "Failed to update employee");
     }
 
-    //
     @Test
     @Tag("all")
     @Tag("get")

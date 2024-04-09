@@ -107,7 +107,8 @@ public class EmployeeAndCompanyJDBC {
             return null;
         }
     }
-//
+
+    //
     public Integer insertEmployee(CreateEmployee employee) { // todo не используется, id получаем тольки при запросе
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlInsertEmployee)) {
