@@ -2,11 +2,14 @@ package com.onrender.x_clients_be.web.x_clients.tests;
 
 import com.onrender.x_clients_be.web.x_clients.db.jdbc.model.EmployeeAndCompanyJDBC;
 import com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator;
+import com.onrender.x_clients_be.web.x_clients.model.CreateCompany;
 import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
 import com.onrender.x_clients_be.web.x_clients.model.Employee;
 import com.onrender.x_clients_be.web.x_clients.model.UpdateEmployee;
 import com.onrender.x_clients_be.web.x_clients.setup.BaseTest;
 import com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,49 +22,96 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeTests extends BaseTest {
 
+    private CreateEmployee employee;
+    private CreateEmployee employee_2;
+    private CreateEmployee employee_3;
+    private Integer employeeId;
+    private Integer employee_2_Id;
+    private Integer employee_3_Id;
+    private Integer companyId;
+
     EmployeeAndCompanyJDBC employeeAndCompanyJDBC = new EmployeeAndCompanyJDBC();
+
+    @BeforeEach
+    void setUp() {
+        employee = createEmployee();
+        employee_2 = createEmployee();
+        employee_3 = createEmployee();
+        companyId = createCompany();
+    }
+
+    @AfterEach
+    void tearDown() {
+        if (employeeId != null) {
+            employeeAndCompanyJDBC.deleteEmployeeById(employeeId);
+        }
+        if (companyId != null) {
+            employeeAndCompanyJDBC.deleteCompanyById(companyId);
+        }
+    }
 
     @Test
     void testAddEmployee() {
-        CreateEmployee employee = createEmployee();
-        Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
+        employee.setCompanyId(companyId);
+        employeeId = EmployeeUtils.addEmployee(employee, companyId);
+
         assertNotNull(employeeId, "Failed to add employee");
-        assertEquals(employeeAndCompanyJDBC.isEmployeeExists(employeeId),1, "Failed to add employee");
+        assertEquals(employeeAndCompanyJDBC.isEmployeeExists(employeeId), 1, "Failed to add employee");
+    }
+
+    @Test
+    void testAddIncorrectEmployee() {
+        employee.setCompanyId(companyId);
+        employee.setFirstName("");
+        employeeId = EmployeeUtils.addEmployee(employee, companyId);
+
+        assertNull(employeeId, "Employee with incorrect data should not be added");
     }
 
     @Test
     void testGetEmployee() {
-        Integer employeeId = EmployeeUtils.addEmployee(createEmployee(), createCompany());
+        employeeId = EmployeeUtils.addEmployee(employee, companyId);
         Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);
+
         assertNotNull(employeeInfo, "Failed to get employee");
         assertEquals(employeeInfo.getId(), employeeAndCompanyJDBC.getEmployeeById(employeeId).getId(), "Failed to get employee");
     }
 
     @Test
     void testUpdateEmployee() {
-        CreateEmployee employee = createEmployee();
-        Integer employeeId = EmployeeUtils.addEmployee(employee, createCompany());
+        employee = createEmployee();
+        companyId = createCompany();
         UpdateEmployee updateEmployee = EmployeeGenerator.updateEmployee();
+
+        employeeId = EmployeeUtils.addEmployee(employee, companyId);
+
         Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
         assertNotEquals(employee.getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(),
                 "Failed to update employee");
+        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employeeId).getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(), "Failed to update employee");
     }
 
+    //
     @Test
     void testGetEmployeeList() {
-        Integer companyId = createCompany();
-        Integer employeeIdFirst = EmployeeUtils.addEmployee(createEmployee(), companyId);
-        Integer employeeIdSecond = EmployeeUtils.addEmployee(createEmployee(), companyId);
-        Integer employeeIdThird = EmployeeUtils.addEmployee(createEmployee(), companyId);
+        employeeId = EmployeeUtils.addEmployee(employee, companyId);
+        employee_2_Id = EmployeeUtils.addEmployee(employee_2, companyId);
+        employee_3_Id = EmployeeUtils.addEmployee(employee_3, companyId);
+
         List<Employee> employeeList = EmployeeUtils.getEmployeeList(companyId);
-        assertThat(employeeList, not(empty()));
-        assertNotNull(employeeList,  "Failed to retrieve employee list");
+        assertEquals(employeeList.size(), 3, "Failed to get employee list");
 
         assertThat(employeeList, containsInAnyOrder(
-                hasProperty("id", equalTo(employeeIdFirst)),
-                hasProperty("id", equalTo(employeeIdSecond)),
-                hasProperty("id", equalTo(employeeIdThird))
+                hasProperty("id", equalTo(employeeId)),
+                hasProperty("id", equalTo(employee_2_Id)),
+                hasProperty("id", equalTo(employee_3_Id))
         ));
 
+        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employeeId).getCompanyId(), companyId, "Failed to get employee_1");
+        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employee_2_Id).getCompanyId(), companyId, "Failed to get employee_2");
+        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employee_3_Id).getCompanyId(), companyId, "Failed to get employee_3");
+
+        employeeAndCompanyJDBC.deleteEmployeeById(employee_2_Id);
+        employeeAndCompanyJDBC.deleteEmployeeById(employee_3_Id);
     }
 }
