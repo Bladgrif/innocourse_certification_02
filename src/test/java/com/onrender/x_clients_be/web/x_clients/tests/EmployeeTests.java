@@ -2,15 +2,12 @@ package com.onrender.x_clients_be.web.x_clients.tests;
 
 import com.onrender.x_clients_be.web.x_clients.db.jdbc.model.EmployeeAndCompanyJDBC;
 import com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator;
-import com.onrender.x_clients_be.web.x_clients.model.CreateCompany;
 import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
 import com.onrender.x_clients_be.web.x_clients.model.Employee;
 import com.onrender.x_clients_be.web.x_clients.model.UpdateEmployee;
 import com.onrender.x_clients_be.web.x_clients.setup.BaseTest;
 import com.onrender.x_clients_be.web.x_clients.utils.EmployeeUtils;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
@@ -51,6 +48,10 @@ public class EmployeeTests extends BaseTest {
     }
 
     @Test
+    @Tag("all")
+    @Tag("post")
+    @Tag("create")
+    @DisplayName("Creating an employee")
     void testAddEmployee() {
         employee.setCompanyId(companyId);
         employeeId = EmployeeUtils.addEmployee(employee, companyId);
@@ -60,6 +61,10 @@ public class EmployeeTests extends BaseTest {
     }
 
     @Test
+    @Tag("all")
+    @Tag("post")
+    @Tag("create")
+    @DisplayName("Creating an employee with incorrect data")
     void testAddIncorrectEmployee() {
         employee.setCompanyId(companyId);
         employee.setFirstName("");
@@ -69,6 +74,10 @@ public class EmployeeTests extends BaseTest {
     }
 
     @Test
+    @Tag("all")
+    @Tag("get")
+    @Tag("read")
+    @DisplayName("Getting an employee")
     void testGetEmployee() {
         employeeId = EmployeeUtils.addEmployee(employee, companyId);
         Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);
@@ -78,6 +87,10 @@ public class EmployeeTests extends BaseTest {
     }
 
     @Test
+    @Tag("all")
+    @Tag("put")
+    @Tag("update")
+    @DisplayName("Employee update")
     void testUpdateEmployee() {
         employee = createEmployee();
         companyId = createCompany();
@@ -93,6 +106,10 @@ public class EmployeeTests extends BaseTest {
 
     //
     @Test
+    @Tag("all")
+    @Tag("get")
+    @Tag("read")
+    @DisplayName("Getting a list of employees")
     void testGetEmployeeList() {
         employeeId = EmployeeUtils.addEmployee(employee, companyId);
         employee_2_Id = EmployeeUtils.addEmployee(employee_2, companyId);
