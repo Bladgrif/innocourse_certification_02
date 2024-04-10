@@ -114,8 +114,7 @@ public class EmployeeTests extends BaseTest {
         employeeId = employeeAndCompanyJDBC.insertEmployee(employee, companyId);
 
         Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
-        assertNotEquals(employee.getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(),
-                "Failed to update employee");
+        assertNotEquals(employee.getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(), "Failed to update employee");
         assertEquals(employeeAndCompanyJDBC.getEmployeeById(employeeId).getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(), "Failed to update employee");
     }
 
