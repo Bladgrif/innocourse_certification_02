@@ -36,7 +36,7 @@ public class CompanyUtils {
             return companies;
 
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода getCompanies");
+            System.out.println("Error when calling getCompanies method");
             e.printStackTrace();
             return null;
         }
@@ -55,7 +55,7 @@ public class CompanyUtils {
                     .extract().path("id");
             return companyId;
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода addCompany");
+            System.out.println("Error when calling addCompany method");
             e.printStackTrace();
             return null;
         }
@@ -95,7 +95,7 @@ public class CompanyUtils {
             return company;
 
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода changeCompany");
+            System.out.println("Error when calling the changeCompany method");
             e.printStackTrace();
             return null;
         }
@@ -114,7 +114,7 @@ public class CompanyUtils {
             return company;
 
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода deleteCompany");
+            System.out.println("Error when calling deleteCompany method");
             e.printStackTrace();
             return null;
         }
@@ -142,7 +142,7 @@ public class CompanyUtils {
             return company;
 
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода activateCompany");
+            System.out.println("Error when calling the activateCompany method");
             e.printStackTrace();
             return null;
         }
