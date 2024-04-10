@@ -99,7 +99,7 @@ public class EmployeeTests extends BaseTest {
         employeeAndCompanyJDBC.deleteEmployeeById(employeeId);
 
         employeeInfo = EmployeeUtils.getEmployee(employeeId);
-        assertNull(employeeInfo,"The remote employee should not be found");
+        assertNull(employeeInfo, "The remote employee should not be found");
         assertNull(employeeAndCompanyJDBC.getEmployeeById(employeeId));
     }
 

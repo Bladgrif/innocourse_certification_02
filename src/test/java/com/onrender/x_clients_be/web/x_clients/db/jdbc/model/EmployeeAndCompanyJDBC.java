@@ -133,7 +133,6 @@ public class EmployeeAndCompanyJDBC {
         }
     }
 
-    //
     public Integer insertEmployee(CreateEmployee employee, int companyId) {
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sqlInsertEmployee, Statement.RETURN_GENERATED_KEYS)) {
