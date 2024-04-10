@@ -11,8 +11,8 @@ import org.junit.jupiter.api.*;
 
 import java.util.List;
 
+import static com.onrender.x_clients_be.web.x_clients.generator.CompanyGenerator.generateCompany;
 import static com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator.createEmployee;
-import static com.onrender.x_clients_be.web.x_clients.utils.CompanyUtils.createCompany;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +34,7 @@ public class EmployeeTests extends BaseTest {
         employee = createEmployee();
         employee_2 = createEmployee();
         employee_3 = createEmployee();
-        companyId = createCompany();
+        companyId = employeeAndCompanyJDBC.insertCompany(generateCompany());
     }
 
     @AfterEach
@@ -79,7 +79,7 @@ public class EmployeeTests extends BaseTest {
     @Tag("read")
     @DisplayName("Getting an employee")
     void testGetEmployee() {
-        employeeId = EmployeeUtils.addEmployee(employee, companyId);
+        employeeId = employeeAndCompanyJDBC.insertEmployee(employee, companyId);
         Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);
 
         assertNotNull(employeeInfo, "Failed to get employee");
@@ -88,15 +88,30 @@ public class EmployeeTests extends BaseTest {
 
     @Test
     @Tag("all")
+    @Tag("get")
+    @Tag("read")
+    @DisplayName("Getting an deleted employee")
+    void testGetIncorrectEmployee() {
+        employeeId = employeeAndCompanyJDBC.insertEmployee(employee, companyId);
+        Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);
+        assertNotNull(employeeInfo, "Failed to get employee");
+
+        employeeAndCompanyJDBC.deleteEmployeeById(employeeId);
+
+        employeeInfo = EmployeeUtils.getEmployee(employeeId);
+        assertNull(employeeInfo,"The remote employee should not be found");
+        assertNull(employeeAndCompanyJDBC.getEmployeeById(employeeId));
+    }
+
+    @Test
+    @Tag("all")
     @Tag("put")
     @Tag("update")
     @DisplayName("Employee update")
     void testUpdateEmployee() {
-        employee = createEmployee();
-        companyId = createCompany();
         UpdateEmployee updateEmployee = EmployeeGenerator.updateEmployee();
 
-        employeeId = EmployeeUtils.addEmployee(employee, companyId);
+        employeeId = employeeAndCompanyJDBC.insertEmployee(employee, companyId);
 
         Integer updatedEmployeeId = EmployeeUtils.updateEmployee(employeeId, updateEmployee);
         assertNotEquals(employee.getEmail(), EmployeeUtils.getEmployee(updatedEmployeeId).getEmail(),
@@ -110,22 +125,21 @@ public class EmployeeTests extends BaseTest {
     @Tag("read")
     @DisplayName("Getting a list of employees")
     void testGetEmployeeList() {
-        employeeId = EmployeeUtils.addEmployee(employee, companyId);
-        employee_2_Id = EmployeeUtils.addEmployee(employee_2, companyId);
-        employee_3_Id = EmployeeUtils.addEmployee(employee_3, companyId);
+        employeeId = employeeAndCompanyJDBC.insertEmployee(employee, companyId);
+        employee_2_Id = employeeAndCompanyJDBC.insertEmployee(employee_2, companyId);
+        employee_3_Id = employeeAndCompanyJDBC.insertEmployee(employee_3, companyId);
 
         List<Employee> employeeList = EmployeeUtils.getEmployeeList(companyId);
         assertEquals(employeeList.size(), 3, "Failed to get employee list");
 
-        assertThat(employeeList, containsInAnyOrder(
+        assertThat(employeeList, contains(
                 hasProperty("id", equalTo(employeeId)),
                 hasProperty("id", equalTo(employee_2_Id)),
                 hasProperty("id", equalTo(employee_3_Id))
         ));
 
-        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employeeId).getCompanyId(), companyId, "Failed to get employee_1");
-        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employee_2_Id).getCompanyId(), companyId, "Failed to get employee_2");
-        assertEquals(employeeAndCompanyJDBC.getEmployeeById(employee_3_Id).getCompanyId(), companyId, "Failed to get employee_3");
+        List<Integer> employeeIds = employeeAndCompanyJDBC.getEmployeeIdsByCompanyId(companyId);
+        assertThat(employeeIds, contains(employeeId, employee_2_Id, employee_3_Id));
 
         employeeAndCompanyJDBC.deleteEmployeeById(employee_2_Id);
         employeeAndCompanyJDBC.deleteEmployeeById(employee_3_Id);

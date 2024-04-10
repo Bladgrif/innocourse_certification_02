@@ -42,11 +42,11 @@ public class CompanyUtils {
         }
     }
 
-    public static Integer createCompany() {
+    public static Integer createCompany(CreateCompany createCompany) {
         try {
             int companyId = given()
                     .contentType(ContentType.JSON)
-                    .body(CompanyGenerator.generateCompany())
+                    .body(createCompany)
                     .header(xClient, TOKEN)
                     .when()
                     .post(COMPANY.getPath())

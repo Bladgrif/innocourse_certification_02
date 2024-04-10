@@ -23,14 +23,14 @@ public class CompanyTests extends BaseTest {
 
     @Test
     void testGetCompanyById() {
-        Integer companyId = createCompany();
+        Integer companyId = createCompany(generateCompany());
         Company company = CompanyUtils.getCompany(companyId);
         assertThat(company, notNullValue());
     }
 
     @Test
     void testChangeCompany() {
-        Integer companyId = createCompany();
+        Integer companyId = createCompany(generateCompany());
         CreateCompany createdCompany = generateCompany();
         Company updatedCompany = CompanyUtils.changeCompany(companyId, createdCompany);
         assertThat(updatedCompany.getName(), equalTo(createdCompany.getName()));
@@ -39,7 +39,7 @@ public class CompanyTests extends BaseTest {
 
     @Test
     void testUpdateCompanyStatus() {
-        Integer companyId = createCompany();
+        Integer companyId = createCompany(generateCompany());
         Company updatedCompany = CompanyUtils.updateCompanyStatus(companyId, false);
         assertThat(updatedCompany.isIsActive(), is(false));
         updatedCompany = CompanyUtils.updateCompanyStatus(companyId, true);
