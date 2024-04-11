@@ -93,14 +93,14 @@ public class EmployeeTests extends BaseTest {
     @DisplayName("Getting an deleted employee")
     void testGetIncorrectEmployee() {
         employeeId = employeeAndCompanyJDBC.insertEmployee(employee, companyId);
-        Employee employeeInfo = EmployeeUtils.getEmployee(employeeId);
-        assertNotNull(employeeInfo, "Failed to get employee");
+        assertNotNull(employeeId, "Failed to add employee");
 
         employeeAndCompanyJDBC.deleteEmployeeById(employeeId);
 
-        employeeInfo = EmployeeUtils.getEmployee(employeeId);
-        assertNull(employeeInfo, "The remote employee should not be found");
-        assertNull(employeeAndCompanyJDBC.getEmployeeById(employeeId));
+        Employee deletedEmployee = EmployeeUtils.getEmployee(employeeId);
+        assertNull(deletedEmployee, "The deleted employee should not be found");
+
+        assertNull(employeeAndCompanyJDBC.getEmployeeById(employeeId), "The deleted employee should not be found in the database");
     }
 
     @Test

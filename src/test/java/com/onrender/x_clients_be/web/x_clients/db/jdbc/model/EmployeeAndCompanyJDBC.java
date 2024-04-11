@@ -20,6 +20,7 @@ public class EmployeeAndCompanyJDBC {
     private final String sqlInsertCompany = "INSERT INTO company(name,description) values (?,?)";
     private final String sqlInsertEmployee = "INSERT INTO employee (first_name, last_name, middle_name, email, phone, company_id) VALUES (?,?,?,?,?,?)";
 
+
     private final DatabaseManager databaseManager;
 
     public EmployeeAndCompanyJDBC() {
