@@ -19,11 +19,11 @@ public class CompanyUtils {
     public static List<Company> getCompanies() {
         return getCompanies(null);
     }
-    public static List<Company> getCompanies(Boolean active) {
+    private  static List<Company> getCompanies(Boolean active) {
         try {
             String address = "";
             if (active != null) {
-                address = "?active=" + active.toString();
+                address = "?active=" + active;
             }
             Response response = given()
                     .when()
@@ -33,11 +33,10 @@ public class CompanyUtils {
                     .extract().response();
             List<Company> companies = response.as(new TypeRef<List<Company>>() {
             });
-            return companies;
+            return List.of();
 
         } catch (Exception e) {
-            System.out.println("Error when calling getCompanies method");
-            e.printStackTrace();
+            System.out.println("Error when calling getCompanies method" + e.getMessage());
             return null;
         }
     }
@@ -55,8 +54,7 @@ public class CompanyUtils {
                     .extract().path("id");
             return companyId;
         } catch (Exception e) {
-            System.out.println("Error when calling addCompany method");
-            e.printStackTrace();
+            System.out.println("Error when calling addCompany method" + e.getMessage());
             return null;
         }
     }
@@ -67,16 +65,14 @@ public class CompanyUtils {
                     .contentType(ContentType.JSON)
                     .header(xClient, TOKEN)
                     .when()
-                    .get(COMPANY.getPath() + "/" + Integer.toString(id))
+                    .get(COMPANY.getPath() + "/" + id)
                     .then()
                     .statusCode(200)
                     .extract().body().as(Company.class);
             return company;
         } catch (Exception e) {
-            System.out.println("Ошибка при вызове метода getCompanyById");
-//            e.printStackTrace();
+            System.out.println("Ошибка при вызове метода getCompanyById" + e.getMessage());
             return null;
-//
         }
     }
 
