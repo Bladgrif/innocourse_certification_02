@@ -1,4 +1,4 @@
-package com.onrender.x_clients_be.web.x_clients.db.jdbc;
+package com.onrender.x_clients_be.web.x_clients.jdbc;
 
 import com.onrender.x_clients_be.web.x_clients.config.ConfigJDBC;
 
