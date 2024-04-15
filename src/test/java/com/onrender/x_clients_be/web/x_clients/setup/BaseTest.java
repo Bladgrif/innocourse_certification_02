@@ -1,14 +1,10 @@
 package com.onrender.x_clients_be.web.x_clients.setup;
 
 import com.onrender.x_clients_be.web.x_clients.config.ConfigApi;
-import com.onrender.x_clients_be.web.x_clients.config.ConfigJDBC;
 import com.onrender.x_clients_be.web.x_clients.model.AuthRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.sql.*;
 
 import static com.onrender.x_clients_be.web.x_clients.config.Endpoints.AUTH_LOGIN;
 import static io.restassured.RestAssured.given;

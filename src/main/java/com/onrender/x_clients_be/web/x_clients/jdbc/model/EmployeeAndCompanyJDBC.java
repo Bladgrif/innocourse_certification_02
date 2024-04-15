@@ -1,6 +1,6 @@
-package com.onrender.x_clients_be.web.x_clients.db.jdbc.model;
+package com.onrender.x_clients_be.web.x_clients.jdbc.model;
 
-import com.onrender.x_clients_be.web.x_clients.db.jdbc.DatabaseManager;
+import com.onrender.x_clients_be.web.x_clients.jdbc.DatabaseManager;
 import com.onrender.x_clients_be.web.x_clients.model.CreateCompany;
 import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
 import com.onrender.x_clients_be.web.x_clients.model.Employee;

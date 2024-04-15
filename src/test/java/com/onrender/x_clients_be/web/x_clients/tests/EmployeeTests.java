@@ -1,6 +1,6 @@
 package com.onrender.x_clients_be.web.x_clients.tests;
 
-import com.onrender.x_clients_be.web.x_clients.db.jdbc.model.EmployeeAndCompanyJDBC;
+import com.onrender.x_clients_be.web.x_clients.jdbc.model.EmployeeAndCompanyJDBC;
 import com.onrender.x_clients_be.web.x_clients.generator.EmployeeGenerator;
 import com.onrender.x_clients_be.web.x_clients.model.CreateEmployee;
 import com.onrender.x_clients_be.web.x_clients.model.Employee;
